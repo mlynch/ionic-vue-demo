@@ -10,7 +10,15 @@
         <ion-list>
           <ion-item>
             <ion-label position="floating">Custom</ion-label>
-            <IonInputVue v-model="user.custom" />
+            <IonInputVue v-model="user.custom" v-on:blur="handleBlur" v-on:ionBlur="handleIonBlur"/>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Date</ion-label>
+            <IonDatetimeVue v-model="user.date" v-on:blur="handleBlur" v-on:ionBlur="handleIonBlur"/>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Date (Custom)</ion-label>
+            <CustomDatetime v-model="user.date2" v-on:blur="handleBlur" v-on:ionBlur="handleIonBlur"/>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Name</ion-label>
@@ -29,12 +37,23 @@
 
 <script>
 import IonInputVue from '../components/IonInputVue';
+import IonDatetimeVue from '../components/IonDatetimeVue';
+import CustomDatetime from '../components/CustomDatetime';
+
 export default {
   name: "myform",
   components: {
-    IonInputVue
+    CustomDatetime,
+    IonInputVue,
+    IonDatetimeVue
   },
   methods: {
+    handleBlur($event) {
+      console.log('Blur', $event);
+    },
+    handleIonBlur($event) {
+      console.log('Ion blur', $event);
+    },
     submitForm() {
       console.log('Submitting form', this.user);
     }
@@ -44,7 +63,9 @@ export default {
       user: {
         name: 'Max',
         address: 'Home',
-        custom: 'This is custom'
+        custom: 'This is custom',
+        date: '',
+        date2: ''
       }
     }
   }
