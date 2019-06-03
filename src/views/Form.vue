@@ -13,12 +13,15 @@
             <IonInputVue v-model="user.custom" v-on:blur="handleBlur" v-on:ionBlur="handleIonBlur"/>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Date</ion-label>
-            <IonDatetimeVue v-model="user.date" v-on:blur="handleBlur" v-on:ionBlur="handleIonBlur"/>
+            <ion-label position="floating">Select</ion-label>
+            <IonSelectVue v-model="user.pet">
+              <ion-select-option value="cats">Cats</ion-select-option>
+              <ion-select-option value="dogs">Dogs</ion-select-option>
+            </IonSelectVue>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Date (Custom)</ion-label>
-            <CustomDatetime v-model="user.date2" v-on:blur="handleBlur" v-on:ionBlur="handleIonBlur"/>
+            <ion-label position="floating">Date</ion-label>
+            <IonDatetimeVue v-model="user.date" v-on:blur="handleBlur" v-on:ionBlur="handleIonBlur"/>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Name</ion-label>
@@ -27,6 +30,14 @@
           <ion-item>
             <ion-label position="floating">Address</ion-label>
             <ion-input v-model="user.address"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Radio</ion-label>
+            <IonRadioVue v-model="user.enabled" value="enabled"></IonRadioVue>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Toggle</ion-label>
+            <IonToggleVue v-model="user.isCool"></IonToggleVue>
           </ion-item>
         </ion-list>
         <ion-button expand="block" type="submit">Submit</ion-button>
@@ -38,14 +49,18 @@
 <script>
 import IonInputVue from '../components/IonInputVue';
 import IonDatetimeVue from '../components/IonDatetimeVue';
-import CustomDatetime from '../components/CustomDatetime';
+import IonSelectVue from '../components/IonSelectVue';
+import IonRadioVue from '../components/IonRadioVue';
+import IonToggleVue from '../components/IonToggleVue';
 
 export default {
   name: "myform",
   components: {
-    CustomDatetime,
     IonInputVue,
-    IonDatetimeVue
+    IonDatetimeVue,
+    IonSelectVue,
+    IonRadioVue,
+    IonToggleVue
   },
   methods: {
     handleBlur($event) {
