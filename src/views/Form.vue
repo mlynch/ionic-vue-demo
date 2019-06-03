@@ -29,15 +29,38 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Address</ion-label>
-            <ion-input v-model="user.address"></ion-input>
+            <IonInputVue v-model="user.address"></IonInputVue>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Notes</ion-label>
+            <IonTextareaVue v-model="user.notes"></IonTextareaVue>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Toggle</ion-label>
+            <IonToggleVue v-model="user.isCool"></IonToggleVue>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Radio</ion-label>
             <IonRadioVue v-model="user.enabled" value="enabled"></IonRadioVue>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Toggle</ion-label>
+            <ion-label position="floating">Checkbox</ion-label>
+            <IonCheckboxVue v-model="user.large"></IonCheckboxVue>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Search</ion-label>
+            <IonSearchbarVue v-model="user.query"></IonSearchbarVue>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Picker</ion-label>
             <IonToggleVue v-model="user.isCool"></IonToggleVue>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Toggle</ion-label>
+            <IonRangeVue min="-200" max="200" color="secondary" v-model="user.range">
+              <ion-label slot="start">-200</ion-label>
+              <ion-label slot="end">200</ion-label>
+            </IonRangeVue>
           </ion-item>
         </ion-list>
         <ion-button expand="block" type="submit">Submit</ion-button>
@@ -48,19 +71,27 @@
 
 <script>
 import IonInputVue from '../components/IonInputVue';
+import IonCheckboxVue from '../components/IonCheckboxVue';
 import IonDatetimeVue from '../components/IonDatetimeVue';
 import IonSelectVue from '../components/IonSelectVue';
+import IonSearchbarVue from '../components/IonSearchbarVue';
 import IonRadioVue from '../components/IonRadioVue';
+import IonRangeVue from '../components/IonRangeVue';
 import IonToggleVue from '../components/IonToggleVue';
+import IonTextareaVue from '../components/IonTextareaVue';
 
 export default {
   name: "myform",
   components: {
     IonInputVue,
+    IonCheckboxVue,
     IonDatetimeVue,
+    IonSearchbarVue,
     IonSelectVue,
     IonRadioVue,
-    IonToggleVue
+    IonToggleVue,
+    IonRangeVue,
+    IonTextareaVue
   },
   methods: {
     handleBlur($event) {
@@ -80,7 +111,12 @@ export default {
         address: 'Home',
         custom: 'This is custom',
         date: '',
-        date2: ''
+        date2: '',
+        range: 100,
+        isCool: false,
+        notes: 'Very legal, very cool',
+        large: false,
+        query: 'This is a query'
       }
     }
   }

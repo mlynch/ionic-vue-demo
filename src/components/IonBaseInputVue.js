@@ -5,9 +5,15 @@ import Vue from 'vue';
  * and emits core ones so v-model works.
  * @param {} name the vue name of the component
  * @param {*} coreTag the actual tag to render (such as ion-datetime)
+ * @param {*} modelEvent the event name to use for 
+ * @param {*} valueProperty the property to use as value. For example: value vs checked for toggles
  */
-export const createInputComponent = (name, coreTag) => {
+export const createInputComponent = (name, coreTag, modelEvent = 'ionChange', valueProperty = 'value') => {
   return Vue.component(name, {
+    model: {
+      event: modelEvent,
+      prop: valueProperty
+    },
     render(createElement) {
       return createElement(coreTag, {
         'attrs': this.attrs,
@@ -21,21 +27,28 @@ export const createInputComponent = (name, coreTag) => {
     },
     methods: {
       handleChange($event) {
-        this.$emit('ionChange', $event);
-        this.$emit('change', $event);
-        this.$emit('input', $event.target.value);
+        if (modelEvent === 'ionChange') {
+          // Vue expects the value to be sent as the argument for v-model, not the
+          // actual event object
+          this.$emit('ionChange', $event.target[valueProperty]);
+        } else {
+          this.$emit('ionChange', $event);
+        }
       },
       handleInput($event) {
-        this.$emit('ionInput', $event);
-        this.$emit('input', $event.target.value);
+        if (modelEvent === 'ionInput') {
+          // Vue expects the value to be sent as the argument for v-model, not the
+          // actual event object
+          this.$emit('ionInput', $event.target[valueProperty]);
+        } else {
+          this.$emit('ionInput', $event);
+        }
       },
       handleBlur($event) {
         this.$emit('ionBlur', $event);
-        this.$emit('blur', $event);
       },
       handleFocus($event) {
         this.$emit('ionFocus', $event);
-        this.$emit('focus', $event);
       }
     }
   });
